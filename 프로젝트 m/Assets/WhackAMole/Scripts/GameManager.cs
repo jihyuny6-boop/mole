@@ -59,8 +59,12 @@ namespace WhackAMole
         public void Attempt(Mole target)
         {
             if (!IsPlaying || Remaining <= 0) return;
-            if (target && target.TryHit()) { Hits++; Score += rules.pointsPerHit; }
-            else Misses++;
+            if (target && target.TryHit()) { Hits++; Score += rules.pointsPerHit; CameraShake.Instance.Shake(0.3f, 0.2f); }
+            else
+            {
+                Misses++;
+                CameraShake.Instance.Shake(0.5f, 0.2f);
+            }
             Changed?.Invoke();
         }
         public void EndGame()
